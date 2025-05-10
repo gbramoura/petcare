@@ -1,6 +1,4 @@
-# PetCare - Your Companion in the Pet Care Journey
-
-## 1. Description
+# 1. PetCare
 
 This presents a comprehensive description of the objectives, target audience, and core functionalities of the PetCare application.
 
@@ -19,6 +17,16 @@ The target audience for this application is pet owners, especially beginners.
 - **Walk Log:** Record the history of activities and/or walks taken by the owner with their pet.
 - **Feeding and Weight Control:** Track the pet's weight and record their feeding schedule.
 - **Medical History:** Record the pet's visits to the veterinarian with information on health status, date of visit, and responsible veterinarian.
+
+
+### 1.4 Design Examples
+
+Some examples of the interface should be seen below:
+
+<div align=center>
+  <img src="https://github.com/user-attachments/assets/82d86eca-ab24-401d-9428-27b76755a72c" alt="fishspot login page" style="width:250px;"/>
+  <img src="https://github.com/user-attachments/assets/b861e865-c670-4bc2-96da-15009aeea472" alt="fishspot register page" style="width:250px;"/>
+</div>
 
 ## 2. Getting Started
 
