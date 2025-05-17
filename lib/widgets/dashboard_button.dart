@@ -17,13 +17,15 @@ class DashboardButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: SizedBox(
-        width: 100,
-        child: Column(
-          children: [
-            Container(
+    return SizedBox(
+      width: 100,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          InkWell(
+            onTap: onPressed,
+            borderRadius: BorderRadius.circular(16),
+            child: Ink(
               height: 100,
               width: 100,
               decoration: BoxDecoration(
@@ -38,8 +40,11 @@ class DashboardButton extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 5),
-            Text(
+          ),
+          SizedBox(height: 5),
+          GestureDetector(
+            onTap: onPressed,
+            child: Text(
               label,
               softWrap: true,
               textAlign: TextAlign.center,
@@ -48,8 +53,8 @@ class DashboardButton extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
