@@ -21,7 +21,7 @@ class TextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: margin ?? EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      margin: margin ?? EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: TextFormField(
         style: TextStyle(fontSize: 18),
         controller: controller,
@@ -34,6 +34,8 @@ class TextInput extends StatelessWidget {
           ),
           fillColor: backgroundColor,
           filled: true,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          hintText: label,
           label: Container(
             padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             decoration: BoxDecoration(
