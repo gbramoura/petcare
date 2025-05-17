@@ -13,6 +13,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       appBar: _appBar(context),
       body: _body(context),
     );
@@ -33,8 +34,10 @@ class HomePage extends StatelessWidget {
 
   Widget _body(BuildContext context) {
     return SingleChildScrollView(
-      child: Center(
+      child: Padding(
+        padding: EdgeInsets.only(left: 16, right: 16),
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           children: [
             _banner(context),
             _board(context),
@@ -46,7 +49,6 @@ class HomePage extends StatelessWidget {
 
   Widget _banner(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16),
       padding: EdgeInsets.only(left: 16, right: 16),
       height: 130,
       decoration: BoxDecoration(
@@ -56,39 +58,51 @@ class HomePage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(
-            'Cuidados com o \nseu Pet na sua mão',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-              color: PetCareTheme.white_50,
+          Flexible(
+            flex: 2,
+            child: Text(
+              'Cuidados com o seu Pet na sua mão',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                color: PetCareTheme.white_50,
+              ),
             ),
           ),
-          Image.asset('assets/home_banner_image.png'),
+          Flexible(
+            child: Image.asset('assets/home_banner_image.png'),
+          ),
         ],
       ),
     );
   }
 
   Widget _board(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 16, right: 16),
+    return SizedBox(
+      width: double.maxFinite,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            'Serviços',
-            softWrap: true,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
+          Row(
+            children: [
+              Text(
+                softWrap: true,
+                textAlign: TextAlign.start,
+                'Serviços',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                ),
+              )
+            ],
           ),
           SizedBox(height: 16),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.start,
+            alignment: WrapAlignment.spaceEvenly,
+            direction: Axis.horizontal,
+            spacing: 16,
+            runSpacing: 16,
             children: [
               DashboardButton(
                 backgroundColor: PetCareTheme.orange_100,
@@ -114,13 +128,6 @@ class HomePage extends StatelessWidget {
                   _navigate(context, RouteConstants.toursAndActivities),
                 },
               ),
-            ],
-          ),
-          SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
               DashboardButton(
                 backgroundColor: PetCareTheme.orange_300,
                 label: 'Histórico Alimentação',
@@ -136,7 +143,7 @@ class HomePage extends StatelessWidget {
                 onPressed: () => {
                   _navigate(context, RouteConstants.medicHistory),
                 },
-              ),
+              )
             ],
           )
         ],
