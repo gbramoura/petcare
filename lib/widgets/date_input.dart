@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:petcare/themes/pet_care_theme.dart';
 
 class DateInput extends StatefulWidget {
@@ -25,7 +26,7 @@ class _DateInputState extends State<DateInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16,vertical: 6),
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: TextFormField(
         enabled: true,
         readOnly: true,
@@ -71,27 +72,27 @@ class _DateInputState extends State<DateInput> {
     );
 
     setState(() {
-      widget.controller.text = pickedDate == null
-          ? ''
-          : '${pickedDate.day.toString().padLeft(2,'0')}/${pickedDate.month.toString().padLeft(2,'0')}/${pickedDate.year}';
+      widget.controller.text =
+          pickedDate == null ? '' : DateFormat('dd/MM/yyyy').format(pickedDate);
     });
   }
 
   Widget _datePickerTheme(context, child) {
     return Theme(
       data: Theme.of(context).copyWith(
-          colorScheme: ColorScheme.light(
-            primary: widget.backgroundColor!,
-            onPrimary: Colors.black,
-            onSurface: Colors.black,
+        colorScheme: ColorScheme.light(
+          primary: widget.backgroundColor!,
+          onPrimary: Colors.black,
+          onSurface: Colors.black,
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.black,
           ),
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.black,
-            ),
-          ),
-          datePickerTheme:
-              DatePickerThemeData(backgroundColor: PetCareTheme.white_50)),
+        ),
+        datePickerTheme:
+            DatePickerThemeData(backgroundColor: PetCareTheme.white_50),
+      ),
       child: child!,
     );
   }
