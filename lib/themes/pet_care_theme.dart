@@ -16,7 +16,7 @@ class PetCareTheme {
 
   static ThemeData theme = ThemeData(
     useMaterial3: false,
-    fontFamily: 'SF Pro Text',
+    fontFamily: 'SanFrancisco',
     scaffoldBackgroundColor: white_50,
     colorScheme: ColorScheme(
       surface: white_50,
