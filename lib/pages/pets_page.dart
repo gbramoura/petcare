@@ -1,7 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/providers/petcare_database_provider.dart';
+import 'package:petcare/repositories/pets_repository.dart';
+import 'package:provider/provider.dart';
 
-class PetsPage extends StatelessWidget {
+class PetsPage extends StatefulWidget {
   const PetsPage({super.key});
+
+  @override
+  State<PetsPage> createState() => _PetsPageState();
+}
+
+class _PetsPageState extends State<PetsPage> {
+  late PetsRepository _petsRepository;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  _load() async {
+    var provider = Provider.of<PetcareDatabaseProvider>(context, listen: false);
+    var database = provider.getDatabase();
+
+    _petsRepository = PetsRepository(database);
+  }
 
   @override
   Widget build(BuildContext context) {

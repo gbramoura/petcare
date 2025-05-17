@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petcare/constants/route_constants.dart';
+import 'package:petcare/database.dart';
 import 'package:petcare/pages/feed_page.dart';
 import 'package:petcare/pages/home_page.dart';
 import 'package:petcare/pages/medic_history_page.dart';
@@ -8,7 +9,9 @@ import 'package:petcare/pages/pets_page.dart';
 import 'package:petcare/pages/splash_page.dart';
 import 'package:petcare/pages/tours_and_activities_page.dart';
 import 'package:petcare/pages/vaccination_history_page.dart';
+import 'package:petcare/providers/petcare_database_provider.dart';
 import 'package:petcare/themes/pet_care_theme.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,9 +22,19 @@ void main() async {
 
   runApp(App(page: SplashPage()));
 
-  // TODO: Use this gap to load the data
+  // Open the database
+  var database = await PetCareDatabase.open();
 
-  runApp(App(page: HomePage()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => PetcareDatabaseProvider(database),
+        ),
+      ],
+      child: App(page: HomePage()),
+    ),
+  );
 }
 
 class App extends StatelessWidget {
