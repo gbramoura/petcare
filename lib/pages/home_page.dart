@@ -130,7 +130,7 @@ class HomePage extends StatelessWidget {
                 },
               ),
               DashboardButton(
-                backgroundColor: PetCareTheme.orange_500,
+                backgroundColor: PetCareTheme.pink_300,
                 label: 'Histórico Medico',
                 icon: Icons.medical_services,
                 onPressed: () => {
