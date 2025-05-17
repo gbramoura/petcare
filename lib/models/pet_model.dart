@@ -4,6 +4,7 @@ class PetModel {
   final String breed;
   final DateTime bornDate;
   final String observation;
+  final String image;
 
   PetModel({
     required this.id,
@@ -11,6 +12,7 @@ class PetModel {
     required this.breed,
     required this.bornDate,
     required this.observation,
+    required this.image,
   });
 
   factory PetModel.create({
@@ -18,12 +20,14 @@ class PetModel {
     required String breed,
     required DateTime bornDate,
     required String observation,
+    required String image,
   }) {
     return PetModel(
       name: name,
       breed: breed,
       bornDate: bornDate,
       observation: observation,
+      image: image,
       id: 0,
     );
   }
@@ -35,6 +39,7 @@ class PetModel {
       breed: map['breed'] as String,
       bornDate: DateTime.parse(map['bornDate'] as String),
       observation: map['observation'] as String,
+      image: map['image'] as String,
     );
   }
 
@@ -45,6 +50,21 @@ class PetModel {
       'breed': breed,
       'bornDate': bornDate.toIso8601String(),
       'observation': observation,
+      'image': image,
     };
+  }
+
+  static String getCreateTableQuery() {
+    return '''
+      CREATE TABLE IF NOT EXISTS pets  (
+        id INTEGER AUTO_INCREMENT,
+        name TEXT NOT NULL,
+        breed TEXT NOT NULL,
+        bornDate TEXT NOT NULL,
+        observation TEXT,
+        image TEXT NOT NULL,
+  		  PRIMARY KEY(id)
+      );
+    ''';
   }
 }

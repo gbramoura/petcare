@@ -53,4 +53,19 @@ class ToursModel {
       'petId': petId,
     };
   }
+
+  static String getCreateTableQuery() {
+    return '''
+      CREATE TABLE IF NOT EXISTS tours  (
+        id INTEGER  AUTO_INCREMENT,
+        activity TEXT NOT NULL,
+        place TEXT NOT NULL,
+        date TEXT NOT NULL,
+        observation TEXT,
+        petId INTEGER NOT NULL,
+  		  PRIMARY KEY(id),
+        FOREIGN KEY(petId) REFERENCES pets(id)
+      );
+    ''';
+  }
 }

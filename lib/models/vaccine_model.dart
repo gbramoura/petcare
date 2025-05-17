@@ -47,4 +47,18 @@ class VaccineModel {
       'petId': petId,
     };
   }
+
+  static String getCreateTableQuery() {
+    return '''
+      CREATE TABLE IF NOT EXISTS vaccines  (
+        id INTEGER AUTO_INCREMENT,
+        name TEXT NOT NULL,
+        date TEXT NOT NULL,
+        observation TEXT,
+        petId INTEGER NOT NULL,
+        PRIMARY KEY(id),
+        FOREIGN KEY(petId) REFERENCES pets(id)
+      );
+    ''';
+  }
 }

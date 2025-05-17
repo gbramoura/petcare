@@ -47,4 +47,18 @@ class FeedModel {
       'petId': petId,
     };
   }
+
+  static String getCreateTableQuery() {
+    return '''
+      CREATE TABLE IF NOT EXISTS feeds (
+        id INTEGER AUTO_INCREMENT,
+        name TEXT NOT NULL,
+        weight REAL NOT NULL,
+        observation TEXT,
+        petId INTEGER NOT NULL,
+        PRIMARY KEY(id),
+        FOREIGN KEY(petId) REFERENCES pets(id)
+      );
+    ''';
+  }
 }

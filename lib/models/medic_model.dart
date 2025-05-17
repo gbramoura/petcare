@@ -1,4 +1,4 @@
-class VaccineModel {
+class MedicModel {
   final int id;
   final String medic;
   final DateTime date;
@@ -6,7 +6,7 @@ class VaccineModel {
   final String observation;
   final int petId;
 
-  VaccineModel({
+  MedicModel({
     required this.medic,
     required this.date,
     required this.healthStatus,
@@ -15,14 +15,14 @@ class VaccineModel {
     required this.petId,
   });
 
-  factory VaccineModel.create({
+  factory MedicModel.create({
     required String medic,
     required DateTime date,
     required String healthStatus,
     required String observation,
     required int petId,
   }) {
-    return VaccineModel(
+    return MedicModel(
       medic: medic,
       date: date,
       healthStatus: healthStatus,
@@ -32,8 +32,8 @@ class VaccineModel {
     );
   }
 
-  factory VaccineModel.fromMap(Map<String, dynamic> map) {
-    return VaccineModel(
+  factory MedicModel.fromMap(Map<String, dynamic> map) {
+    return MedicModel(
       id: map['id'] as int,
       medic: map['medic'] as String,
       date: DateTime.parse(map['date'] as String),
@@ -52,5 +52,20 @@ class VaccineModel {
       'observation': observation,
       'petId': petId,
     };
+  }
+
+  static String getCreateTableQuery() {
+    return '''
+      CREATE TABLE IF NOT EXISTS medics  (
+        id INTEGER AUTO_INCREMENT,
+        medic TEXT NOT NULL,
+        date TEXT NOT NULL,
+        healthStatus TEXT NOT NULL,
+        observation TEXT,
+        petId INTEGER NOT NULL,
+        PRIMARY KEY(id),
+        FOREIGN KEY(petId) REFERENCES pets(id)
+      );
+    ''';
   }
 }
