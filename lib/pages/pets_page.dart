@@ -91,6 +91,8 @@ class _PetsPageState extends State<PetsPage> {
         Image.asset('assets/empty_pets.png', height: 368, width: 368),
         Text(
           'Nenhum pet encontrado',
+          textAlign: TextAlign.center,
+          softWrap: true,
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w600,
