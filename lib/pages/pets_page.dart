@@ -7,6 +7,7 @@ class PetsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),
+      body: _body(context),
     );
   }
 
@@ -21,6 +22,12 @@ class PetsPage extends StatelessWidget {
         ),
       ),
       shadowColor: Colors.transparent,
+    );
+  }
+
+  Widget _body(BuildContext context) {
+    return Center(
+      child: Text('pets'),
     );
   }
 }
