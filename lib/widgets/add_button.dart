@@ -17,34 +17,37 @@ class AddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      borderRadius: BorderRadius.circular(50),
       onTap: onPressed,
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: Icon(
+      child: Ink(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                label,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  color: PetCareTheme.white,
+                ),
+              ),
+              SizedBox(width: 10),
+              Icon(
                 icon,
                 size: 32,
                 color: PetCareTheme.white,
               ),
-            ),
+            ],
           ),
-          SizedBox(height: 5),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
