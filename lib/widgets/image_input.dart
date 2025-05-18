@@ -26,7 +26,9 @@ class _ImageInputState extends State<ImageInput> {
       return;
     }
 
-    widget.controller.text = pickedFile.path;
+    setState(() {
+      widget.controller.text = pickedFile.path;
+    });
   }
 
   @override
@@ -66,7 +68,16 @@ class _ImageInputState extends State<ImageInput> {
         ],
       );
     }
-
-    return Image.file(File(widget.controller.text));
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: FileImage(
+            File(widget.controller.text),
+          ),
+        ),
+      ),
+    );
   }
 }
