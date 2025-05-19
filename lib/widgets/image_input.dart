@@ -6,11 +6,13 @@ import 'package:image_picker/image_picker.dart';
 class ImageInput extends StatefulWidget {
   final Color color;
   final TextEditingController controller;
+  final EdgeInsetsGeometry? margin;
 
   const ImageInput({
     super.key,
     required this.color,
     required this.controller,
+    this.margin,
   });
 
   @override
@@ -33,17 +35,21 @@ class _ImageInputState extends State<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: _pick,
-      borderRadius: BorderRadius.circular(16),
-      child: Ink(
-        width: double.infinity,
-        height: 200,
-        decoration: BoxDecoration(
-          color: widget.color,
-          borderRadius: BorderRadius.circular(16),
+    return Container(
+      margin:
+          widget.margin ?? EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      child: InkWell(
+        onTap: _pick,
+        borderRadius: BorderRadius.circular(16),
+        child: Ink(
+          width: double.infinity,
+          height: 200,
+          decoration: BoxDecoration(
+            color: widget.color,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: _image(),
         ),
-        child: _image(),
       ),
     );
   }

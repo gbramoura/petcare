@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/constants/route_constants.dart';
 import 'package:petcare/models/pet_model.dart';
 import 'package:petcare/pages/loading_page.dart';
 import 'package:petcare/providers/petcare_database_provider.dart';
@@ -53,7 +54,7 @@ class _PetsPageState extends State<PetsPage> {
     return Scaffold(
       appBar: _appBar(context),
       body: _body(context),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: _floatingActionButton(context),
     );
   }
@@ -107,6 +108,9 @@ class _PetsPageState extends State<PetsPage> {
       label: 'Adicionar Pet',
       color: PetCareTheme.orange_100,
       icon: Icons.pets,
+      onPressed: () {
+        Navigator.pushNamed(context, RouteConstants.addPet);
+      },
     );
   }
 }

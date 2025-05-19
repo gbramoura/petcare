@@ -46,10 +46,17 @@ class TextInput extends StatelessWidget {
             ),
             child: Text(
               label,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
           ),
-          suffixIcon: Icon(icon),
+          suffixIcon: Icon(
+            icon,
+            color: Colors.black,
+          ),
         ),
       ),
     );

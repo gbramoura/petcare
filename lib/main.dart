@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petcare/constants/route_constants.dart';
 import 'package:petcare/database.dart';
+import 'package:petcare/pages/add_pet_page.dart';
 import 'package:petcare/pages/feed_page.dart';
 import 'package:petcare/pages/home_page.dart';
 import 'package:petcare/pages/medic_history_page.dart';
@@ -58,6 +59,7 @@ class App extends StatelessWidget {
             VaccinationHistoryPage(),
         RouteConstants.toursAndActivities: (context) =>
             ToursAndActivitiesPage(),
+        RouteConstants.addPet: (context) => AddPetPage(),
       },
     );
   }

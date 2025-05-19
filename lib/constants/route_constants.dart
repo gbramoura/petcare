@@ -1,6 +1,7 @@
 class RouteConstants {
   static String home = "/home";
   static String pets = "/pets";
+  static String addPet = "/add-pet";
   static String vaccinationHistory = '/vaccination-history';
   static String toursAndActivities = '/tours-and-activities';
   static String feed = '/feed';

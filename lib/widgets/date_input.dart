@@ -53,10 +53,17 @@ class _DateInputState extends State<DateInput> {
             ),
             child: Text(
               widget.label,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
           ),
-          suffixIcon: Icon(widget.icon ?? Icons.calendar_today),
+          suffixIcon: Icon(
+            widget.icon ?? Icons.calendar_today,
+            color: Colors.black,
+          ),
         ),
       ),
     );
@@ -90,8 +97,9 @@ class _DateInputState extends State<DateInput> {
             foregroundColor: Colors.black,
           ),
         ),
-        datePickerTheme:
-            DatePickerThemeData(backgroundColor: PetCareTheme.white_50),
+        datePickerTheme: DatePickerThemeData(
+          backgroundColor: PetCareTheme.white_50,
+        ),
       ),
       child: child!,
     );
