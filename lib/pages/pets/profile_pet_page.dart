@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:age_calculator/age_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:petcare/models/pet_model.dart';
 import 'package:petcare/pages/loading_page.dart';
 import 'package:petcare/providers/petcare_database_provider.dart';
 import 'package:petcare/repositories/pets_repository.dart';
+import 'package:petcare/themes/pet_care_theme.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePetPage extends StatefulWidget {
@@ -73,8 +77,78 @@ class _ProfilePetPageState extends State<ProfilePetPage> {
   }
 
   Widget _body(BuildContext context) {
-    return Center(
-      child: Text(_pet.name),
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: PetCareTheme.orange_100,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _pet.name,
+                      softWrap: true,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 24,
+                        color: PetCareTheme.white,
+                      ),
+                    ),
+                    Text(
+                      _pet.breed,
+                      softWrap: true,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                        fontStyle: FontStyle.italic,
+                        color: PetCareTheme.white,
+                      ),
+                    ),
+                    Text(
+                      _getAge(_pet.bornDate),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color: PetCareTheme.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: FileImage(
+                      File(_pet.image),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
+  }
+
+  String _getAge(DateTime date) {
+    var age = AgeCalculator.age(date);
+
+    if (age.years >= 1) {
+      return '${age.years.toString()} Ano(s)';
+    }
+
+    return '${age.months.toString()} Mes(es)';
   }
 }
