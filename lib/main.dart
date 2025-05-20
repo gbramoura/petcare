@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petcare/constants/route_constants.dart';
 import 'package:petcare/database.dart';
+import 'package:petcare/pages/pets/add_pet_page.dart';
 import 'package:petcare/pages/feed_page.dart';
 import 'package:petcare/pages/home_page.dart';
 import 'package:petcare/pages/medic_history_page.dart';
-import 'package:petcare/pages/pets_page.dart';
+import 'package:petcare/pages/pets/pets_page.dart';
 import 'package:petcare/pages/splash_page.dart';
 import 'package:petcare/pages/tours_and_activities_page.dart';
 import 'package:petcare/pages/vaccination_history_page.dart';
@@ -58,6 +59,7 @@ class App extends StatelessWidget {
             VaccinationHistoryPage(),
         RouteConstants.toursAndActivities: (context) =>
             ToursAndActivitiesPage(),
+        RouteConstants.addPet: (context) => AddPetPage(),
       },
     );
   }
