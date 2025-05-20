@@ -56,37 +56,27 @@ class _AddPetPageState extends State<AddPetPage> {
   }
 
   _save() async {
-    // TODO: Think about validators
-    if (!_formGlobalKey.currentState!.validate()) {
-      return;
-    }
+    var file = XFile(_imageController.text);
+    var duplicateFilePath = (await getApplicationDocumentsDirectory()).path;
+    var fileName = file.path.split(Platform.pathSeparator).last;
+    var filePath = '$duplicateFilePath/$fileName';
 
-    try {
-      var file = XFile(_imageController.text);
-      var duplicateFilePath = (await getApplicationDocumentsDirectory()).path;
-      var fileName = file.path.split(Platform.pathSeparator).last;
-      var filePath = '$duplicateFilePath/$fileName';
+    await file.saveTo(filePath);
 
-      await file.saveTo(filePath);
+    var pets = await _petsRepository.list();
+    var value = PetModel.create(
+      id: pets.length,
+      name: _nameController.text,
+      breed: _breedController.text,
+      bornDate: DateFormat("dd/MM/yyyy").parse(_bornDateController.text),
+      observation: _observationController.text,
+      image: filePath,
+    );
 
-      var pets = await _petsRepository.list();
-      var value = PetModel.create(
-        id: pets.length,
-        name: _nameController.text,
-        breed: _breedController.text,
-        bornDate: DateFormat("dd/MM/yyyy").parse(_bornDateController.text),
-        observation: _observationController.text,
-        image: filePath,
-      );
+    await _petsRepository.create(value);
 
-      await _petsRepository.create(value);
-
-      // TODO: Create dialog to show sucess and go back to page
-      if (mounted) {
-        Navigator.pop(context);
-      }
-    } catch (e) {
-      // TODO: Create dialog to show error
+    if (mounted) {
+      Navigator.pop(context);
     }
   }
 
