@@ -16,6 +16,7 @@ class PetModel {
   });
 
   factory PetModel.create({
+    required int id,
     required String name,
     required String breed,
     required DateTime bornDate,
@@ -28,7 +29,7 @@ class PetModel {
       bornDate: bornDate,
       observation: observation,
       image: image,
-      id: 0,
+      id: id,
     );
   }
 

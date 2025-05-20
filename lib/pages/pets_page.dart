@@ -6,6 +6,7 @@ import 'package:petcare/providers/petcare_database_provider.dart';
 import 'package:petcare/repositories/pets_repository.dart';
 import 'package:petcare/themes/pet_care_theme.dart';
 import 'package:petcare/widgets/add_button.dart';
+import 'package:petcare/widgets/pet_card.dart';
 import 'package:provider/provider.dart';
 
 class PetsPage extends StatefulWidget {
@@ -78,8 +79,21 @@ class _PetsPageState extends State<PetsPage> {
       return _empty();
     }
 
-    return Center(
-      child: Text('pets'),
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      primary: false,
+      shrinkWrap: true,
+      itemCount: _list.length,
+      itemBuilder: (context, index) {
+        var pet = _list[index];
+        return PetCard(
+          id: pet.id,
+          image: pet.image,
+          name: pet.name,
+          breed: pet.breed,
+          bornDate: pet.bornDate,
+        );
+      },
     );
   }
 
@@ -109,7 +123,18 @@ class _PetsPageState extends State<PetsPage> {
       color: PetCareTheme.orange_100,
       icon: Icons.pets,
       onPressed: () {
-        Navigator.pushNamed(context, RouteConstants.addPet);
+        Navigator.pushNamed(context, RouteConstants.addPet).then((value) async {
+          setState(() {
+            _loading = true;
+          });
+
+          var pets = await _petsRepository.list();
+
+          setState(() {
+            _list = pets;
+            _loading = false;
+          });
+        });
       },
     );
   }

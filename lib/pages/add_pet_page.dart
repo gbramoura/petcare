@@ -69,7 +69,9 @@ class _AddPetPageState extends State<AddPetPage> {
 
       await file.saveTo(filePath);
 
+      var pets = await _petsRepository.list();
       var value = PetModel.create(
+        id: pets.length,
         name: _nameController.text,
         breed: _breedController.text,
         bornDate: DateFormat("dd/MM/yyyy").parse(_bornDateController.text),
