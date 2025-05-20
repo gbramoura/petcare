@@ -43,7 +43,7 @@ class _PetCardState extends State<PetCard> {
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: PetCareTheme.orange_100.withAlpha(125),
+        color: PetCareTheme.orange_50,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(

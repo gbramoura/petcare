@@ -114,32 +114,32 @@ class _AddPetPageState extends State<AddPetPage> {
       child: Column(
         children: [
           ImageInput(
-            color: PetCareTheme.orange_100.withAlpha(100),
+            color: PetCareTheme.orange_50,
             controller: _imageController,
           ),
           SizedBox(height: 16),
           TextInput(
-            backgroundColor: PetCareTheme.orange_100.withAlpha(100),
+            backgroundColor: PetCareTheme.orange_50,
             label: 'Nome',
             controller: _nameController,
             icon: Icons.pets,
           ),
           SizedBox(height: 16),
           TextInput(
-            backgroundColor: PetCareTheme.orange_100.withAlpha(100),
+            backgroundColor: PetCareTheme.orange_50,
             label: 'Raça',
             controller: _breedController,
             icon: Icons.bloodtype,
           ),
           SizedBox(height: 16),
           DateInput(
-            backgroundColor: PetCareTheme.orange_100.withAlpha(100),
+            backgroundColor: PetCareTheme.orange_50,
             label: 'Data de Nascimento',
             controller: _bornDateController,
           ),
           SizedBox(height: 16),
           TextInput(
-            backgroundColor: PetCareTheme.orange_100.withAlpha(100),
+            backgroundColor: PetCareTheme.orange_50,
             label: 'Observação',
             controller: _observationController,
             maxlines: 3,

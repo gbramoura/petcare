@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PetCareTheme {
+  static Color orange_50 = Color.fromRGBO(255, 230, 185, 1);
   static Color orange_100 = Color.fromRGBO(239, 187, 76, 1);
   static Color orange_300 = Color.fromRGBO(239, 115, 65, 1);
   static Color orange_500 = Color.fromRGBO(215, 131, 63, 1);
