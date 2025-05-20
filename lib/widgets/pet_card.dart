@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:age_calculator/age_calculator.dart';
 import 'package:flutter/material.dart';
+import 'package:petcare/pages/pets/profile_pet_page.dart';
 import 'package:petcare/themes/pet_care_theme.dart';
 
 class PetCard extends StatefulWidget {
@@ -26,7 +27,14 @@ class PetCard extends StatefulWidget {
 
 class _PetCardState extends State<PetCard> {
   _navigate() {
-    // TODO: Navigate to pet details
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfilePetPage(
+          id: widget.id,
+        ),
+      ),
+    );
   }
 
   @override
