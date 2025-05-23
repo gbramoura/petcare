@@ -70,7 +70,7 @@ class _AddToursAndActivitiesPageState extends State<AddToursAndActivitiesPage> {
   _save() async {
     var tours = await _toursRepository.list();
     var value = ToursModel.create(
-      id: tours.length,
+      id: tours.last.id + 1,
       activity: _activityController.text,
       date: DateFormat("dd/MM/yyyy").parse(_dateController.text),
       observation: '',

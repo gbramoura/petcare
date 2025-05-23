@@ -46,6 +46,21 @@ class _ToursAndActivitiesPageState extends State<ToursAndActivitiesPage> {
     });
   }
 
+  _delete(int id) async {
+    setState(() {
+      _loading = true;
+    });
+
+    await _toursRepository.delete(id);
+
+    var tours = await _toursRepository.list();
+
+    setState(() {
+      _list = tours;
+      _loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_loading) {
@@ -92,6 +107,9 @@ class _ToursAndActivitiesPageState extends State<ToursAndActivitiesPage> {
           activity: tours.activity,
           date: tours.date,
           place: tours.place,
+          onDelete: (context) {
+            _delete(tours.id);
+          },
         );
       },
     );
