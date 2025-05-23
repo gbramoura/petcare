@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/constants/route_constants.dart';
 import 'package:petcare/models/tours_model.dart';
 import 'package:petcare/pages/loading_page.dart';
 import 'package:petcare/providers/petcare_database_provider.dart';
 import 'package:petcare/repositories/tours_repository.dart';
 import 'package:petcare/themes/pet_care_theme.dart';
 import 'package:petcare/widgets/add_button.dart';
+import 'package:petcare/widgets/tours_card.dart';
 import 'package:provider/provider.dart';
 
 class ToursAndActivitiesPage extends StatefulWidget {
@@ -44,6 +46,21 @@ class _ToursAndActivitiesPageState extends State<ToursAndActivitiesPage> {
     });
   }
 
+  _delete(int id) async {
+    setState(() {
+      _loading = true;
+    });
+
+    await _toursRepository.delete(id);
+
+    var tours = await _toursRepository.list();
+
+    setState(() {
+      _list = tours;
+      _loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_loading) {
@@ -53,7 +70,7 @@ class _ToursAndActivitiesPageState extends State<ToursAndActivitiesPage> {
     return Scaffold(
       appBar: _appBar(context),
       body: _body(context),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: _floatingActionButton(context),
     );
   }
@@ -77,8 +94,24 @@ class _ToursAndActivitiesPageState extends State<ToursAndActivitiesPage> {
       return _empty();
     }
 
-    return Center(
-      child: Text('tours'),
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      primary: false,
+      shrinkWrap: true,
+      itemCount: _list.length,
+      itemBuilder: (context, index) {
+        var tours = _list[index];
+        return ToursCard(
+          id: tours.id,
+          petId: tours.petId,
+          activity: tours.activity,
+          date: tours.date,
+          place: tours.place,
+          onDelete: (context) {
+            _delete(tours.id);
+          },
+        );
+      },
     );
   }
 
@@ -111,6 +144,22 @@ class _ToursAndActivitiesPageState extends State<ToursAndActivitiesPage> {
       label: 'Adicionar Atividade',
       color: PetCareTheme.blue_300,
       icon: Icons.park,
+      onPressed: () {
+        Navigator.pushNamed(context, RouteConstants.addToursAndActivities).then(
+          (value) async {
+            setState(() {
+              _loading = true;
+            });
+
+            var tours = await _toursRepository.list();
+
+            setState(() {
+              _list = tours;
+              _loading = false;
+            });
+          },
+        );
+      },
     );
   }
 }

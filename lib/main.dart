@@ -8,7 +8,8 @@ import 'package:petcare/pages/home_page.dart';
 import 'package:petcare/pages/medic_history_page.dart';
 import 'package:petcare/pages/pets/pets_page.dart';
 import 'package:petcare/pages/splash_page.dart';
-import 'package:petcare/pages/tours_and_activities_page.dart';
+import 'package:petcare/pages/tours_and_activities/add_tours_and_activities_page.dart';
+import 'package:petcare/pages/tours_and_activities/tours_and_activities_page.dart';
 import 'package:petcare/pages/vaccination_history_page.dart';
 import 'package:petcare/providers/petcare_database_provider.dart';
 import 'package:petcare/themes/pet_care_theme.dart';
@@ -60,6 +61,8 @@ class App extends StatelessWidget {
         RouteConstants.toursAndActivities: (context) =>
             ToursAndActivitiesPage(),
         RouteConstants.addPet: (context) => AddPetPage(),
+        RouteConstants.addToursAndActivities: (context) =>
+            AddToursAndActivitiesPage(),
       },
     );
   }
