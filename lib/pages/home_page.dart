@@ -146,7 +146,17 @@ class HomePage extends StatelessWidget {
                 },
               )
             ],
-          )
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
+              child: Image.asset(
+                'assets/home_bottom_image.png',
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
         ],
       ),
     );
