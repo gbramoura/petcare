@@ -21,13 +21,14 @@ class ToursModel {
     required DateTime date,
     required String observation,
     required int petId,
+    required int id,
   }) {
     return ToursModel(
       activity: activity,
       place: place,
       date: date,
       observation: observation,
-      id: 0,
+      id: id,
       petId: petId,
     );
   }
