@@ -22,13 +22,12 @@ class AddVaccinationPage extends StatefulWidget {
 
 class _AddVaccinationPageState extends State<AddVaccinationPage> {
   final _formGlobalKey = GlobalKey<FormState>();
-  final _petIdController = TextEditingController() ;
+  final _petIdController = TextEditingController();
   final _nameController = TextEditingController();
   final _applicationDateController = TextEditingController();
   final _observationController = TextEditingController();
 
   late List<PetModel> _petlist;
-  late PetsRepository _petsRepository;
   late VaccineRepository _vaccineRepository;
 
   bool _loading = false;
@@ -51,7 +50,6 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
     var pets = await petsRepository.list();
 
     setState(() {
-      _petsRepository = petsRepository;
       _petlist = pets;
       _vaccineRepository = vaccineRepository;
       _loading = false;
@@ -63,23 +61,19 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
       return;
     }
 
-    try {
-      var vaccine = await _vaccineRepository.list();
-      var value = VaccineModel.create(
-        id: vaccine.isEmpty? 0: vaccine.last.id+1,
-        name: _nameController.text,
-        date: DateFormat("dd/MM/yyyy").parse(_applicationDateController.text),
-        observation: _observationController.text,
-        petId: int.parse(_petIdController.text),
-      );
+    var vaccine = await _vaccineRepository.list();
+    var value = VaccineModel.create(
+      id: vaccine.isEmpty ? 0 : vaccine.last.id + 1,
+      name: _nameController.text,
+      date: DateFormat("dd/MM/yyyy").parse(_applicationDateController.text),
+      observation: _observationController.text,
+      petId: int.parse(_petIdController.text),
+    );
 
-      await _vaccineRepository.create(value);
-      // TODO: Create dialog to show sucess and go back to page
-      if (mounted) {
-        Navigator.pop(context);
-      }
-    } catch (e) {
-      // TODO: Create dialog to show error
+    await _vaccineRepository.create(value);
+
+    if (mounted) {
+      Navigator.pop(context);
     }
   }
 
@@ -88,7 +82,7 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
     if (_loading) {
       return LoadingPage();
     }
-    
+
     return Scaffold(
       appBar: _appBar(context),
       body: _body(context),
@@ -124,7 +118,7 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
             icon: Icons.pets,
             backgroundColor: PetCareTheme.pink_50,
             margin: EdgeInsets.only(left: 16, right: 16, top: 16),
-            onChanged: (value) => _petIdController.text=value!,
+            onChanged: (value) => _petIdController.text = value!,
           ),
           SizedBox(height: 16),
           TextInput(

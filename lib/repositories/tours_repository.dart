@@ -49,4 +49,16 @@ class ToursRepository {
       return ToursModel.fromMap(tours[i]);
     });
   }
+
+  Future<List<ToursModel>> listWherePet(int petId) async {
+    var tours = await _db.query(
+      _table,
+      where: 'petId = ?',
+      whereArgs: [petId],
+    );
+
+    return List.generate(tours.length, (i) {
+      return ToursModel.fromMap(tours[i]);
+    });
+  }
 }

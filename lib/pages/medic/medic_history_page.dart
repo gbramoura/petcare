@@ -21,8 +21,6 @@ class MedicHistoryPage extends StatefulWidget {
 class _MedicHistoryPageState extends State<MedicHistoryPage> {
   late MedicRepository _medicRepository;
   late List<MedicModel> _list;
-
-  late PetsRepository _petsRepository;
   late List<PetModel> _petsList;
 
   bool _loading = false;

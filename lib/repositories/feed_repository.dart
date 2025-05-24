@@ -49,4 +49,16 @@ class FeedRepository {
       return FeedModel.fromMap(feeds[i]);
     });
   }
+
+  Future<List<FeedModel>> listWherePet(int petId) async {
+    var tours = await _db.query(
+      _table,
+      where: 'petId = ?',
+      whereArgs: [petId],
+    );
+
+    return List.generate(tours.length, (i) {
+      return FeedModel.fromMap(tours[i]);
+    });
+  }
 }

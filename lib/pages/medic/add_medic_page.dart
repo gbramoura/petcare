@@ -29,7 +29,6 @@ class _AddMedicPageState extends State<AddMedicPage> {
   final _observationController = TextEditingController();
 
   late List<PetModel> _petlist;
-  late PetsRepository _petsRepository;
   late MedicRepository _medicRepository;
 
   bool _loading = false;
@@ -52,7 +51,6 @@ class _AddMedicPageState extends State<AddMedicPage> {
     var pets = await petsRepository.list();
 
     setState(() {
-      _petsRepository = petsRepository;
       _petlist = pets;
       _medicRepository = medicRepository;
       _loading = false;
@@ -67,7 +65,7 @@ class _AddMedicPageState extends State<AddMedicPage> {
     try {
       var medic = await _medicRepository.list();
       var value = MedicModel.create(
-        id: medic.isEmpty? 0: medic.last.id+1,
+        id: medic.isEmpty ? 0 : medic.last.id + 1,
         medic: _nameController.text,
         date: DateFormat("dd/MM/yyyy").parse(_medicDateController.text),
         observation: _observationController.text,
@@ -79,9 +77,7 @@ class _AddMedicPageState extends State<AddMedicPage> {
       if (mounted) {
         Navigator.pop(context);
       }
-    } catch (e) {
-      
-    }
+    } catch (e) {}
   }
 
   @override

@@ -49,4 +49,16 @@ class MedicRepository {
       return MedicModel.fromMap(medics[i]);
     });
   }
+
+  Future<List<MedicModel>> listWherePet(int petId) async {
+    var tours = await _db.query(
+      _table,
+      where: 'petId = ?',
+      whereArgs: [petId],
+    );
+
+    return List.generate(tours.length, (i) {
+      return MedicModel.fromMap(tours[i]);
+    });
+  }
 }
