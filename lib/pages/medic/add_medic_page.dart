@@ -164,7 +164,7 @@ class _AddMedicPageState extends State<AddMedicPage> {
     return SaveButton(
       label: 'Salvar',
       color: PetCareTheme.pink_300,
-      icon: Icons.vaccines,
+      icon: Icons.medical_services,
       onPressed: _save,
     );
   }
