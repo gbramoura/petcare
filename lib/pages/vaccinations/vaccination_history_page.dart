@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/constants/route_constants.dart';
 import 'package:petcare/models/vaccine_model.dart';
 import 'package:petcare/pages/loading_page.dart';
 import 'package:petcare/providers/petcare_database_provider.dart';
@@ -53,7 +54,7 @@ class _VaccinationHistoryPageState extends State<VaccinationHistoryPage> {
     return Scaffold(
       appBar: _appBar(context),
       body: _body(context),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: _floatingActionButton(context),
     );
   }
@@ -107,6 +108,26 @@ class _VaccinationHistoryPageState extends State<VaccinationHistoryPage> {
       label: 'Adicionar Vacina',
       color: PetCareTheme.pink_900,
       icon: Icons.vaccines,
+      onPressed: () {
+        Navigator.pushNamed(context, RouteConstants.addVaccination).then(
+          (value) async {
+            setState(
+              () {
+                _loading = true;
+              },
+            );
+
+            var vaccines = await _vaccineRepository.list();
+
+            setState(
+              () {
+                _list = vaccines;
+                _loading = false;
+              },
+            );
+          },
+        );
+      },
     );
   }
 }
