@@ -10,8 +10,6 @@ import 'package:petcare/pages/pets/pets_page.dart';
 import 'package:petcare/pages/splash_page.dart';
 import 'package:petcare/pages/tours_and_activities/add_tours_and_activities_page.dart';
 import 'package:petcare/pages/tours_and_activities/tours_and_activities_page.dart';
-import 'package:petcare/pages/vaccination_history_page.dart';
-import 'package:petcare/pages/tours_and_activities_page.dart';
 import 'package:petcare/pages/vaccinations/add_vaccination_page.dart';
 import 'package:petcare/pages/vaccinations/vaccination_history_page.dart';
 import 'package:petcare/providers/petcare_database_provider.dart';

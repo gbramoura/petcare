@@ -6,6 +6,7 @@ import 'package:petcare/providers/petcare_database_provider.dart';
 import 'package:petcare/repositories/vaccine_repository.dart';
 import 'package:petcare/themes/pet_care_theme.dart';
 import 'package:petcare/widgets/add_button.dart';
+import 'package:petcare/widgets/vaccine_card.dart';
 import 'package:provider/provider.dart';
 
 class VaccinationHistoryPage extends StatefulWidget {
@@ -45,6 +46,21 @@ class _VaccinationHistoryPageState extends State<VaccinationHistoryPage> {
     });
   }
 
+  _delete(int id) async {
+    setState(() {
+      _loading = true;
+    });
+
+    await _vaccineRepository.delete(id);
+
+    var vaccines = await _vaccineRepository.list();
+
+    setState(() {
+      _list = vaccines;
+      _loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_loading) {
@@ -78,8 +94,21 @@ class _VaccinationHistoryPageState extends State<VaccinationHistoryPage> {
       return _empty();
     }
 
-    return Center(
-      child: Text('vac'),
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      primary: false,
+      shrinkWrap: true,
+      itemCount: _list.length,
+      itemBuilder: (context, index) {
+        var vaccine = _list[index];
+        return VaccineCard(
+          petId: vaccine.petId,
+          vaccine: vaccine,
+          onDelete: (context) {
+            _delete(vaccine.id);
+          },
+        );
+      },
     );
   }
 
