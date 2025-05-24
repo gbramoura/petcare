@@ -76,12 +76,11 @@ class _AddMedicPageState extends State<AddMedicPage> {
       );
 
       await _medicRepository.create(value);
-      // TODO: Create dialog to show sucess and go back to page
       if (mounted) {
         Navigator.pop(context);
       }
     } catch (e) {
-      // TODO: Create dialog to show error
+      
     }
   }
 
