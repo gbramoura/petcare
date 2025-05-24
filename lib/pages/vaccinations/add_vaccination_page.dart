@@ -64,7 +64,9 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
     }
 
     try {
+      var vaccine = await _vaccineRepository.list();
       var value = VaccineModel.create(
+        id: vaccine.isEmpty? 0: vaccine.last.id+1,
         name: _nameController.text,
         date: DateFormat("dd/MM/yyyy").parse(_applicationDateController.text),
         observation: _observationController.text,

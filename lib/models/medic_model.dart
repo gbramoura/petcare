@@ -21,13 +21,14 @@ class MedicModel {
     required String healthStatus,
     required String observation,
     required int petId,
+    required int id,
   }) {
     return MedicModel(
       medic: medic,
       date: date,
       healthStatus: healthStatus,
       observation: observation,
-      id: 0,
+      id: id,
       petId: petId,
     );
   }
