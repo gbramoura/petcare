@@ -49,4 +49,16 @@ class VaccineRepository {
       return VaccineModel.fromMap(vaccines[i]);
     });
   }
+
+  Future<List<VaccineModel>> listWherePet(int petId) async {
+    var tours = await _db.query(
+      _table,
+      where: 'petId = ?',
+      whereArgs: [petId],
+    );
+
+    return List.generate(tours.length, (i) {
+      return VaccineModel.fromMap(tours[i]);
+    });
+  }
 }
