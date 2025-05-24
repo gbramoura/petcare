@@ -154,7 +154,7 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
     return SaveButton(
       label: 'Salvar',
       color: PetCareTheme.pink_900,
-      icon: Icons.pets,
+      icon: Icons.vaccines,
       onPressed: _save,
     );
   }
