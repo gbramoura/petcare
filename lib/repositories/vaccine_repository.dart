@@ -7,7 +7,7 @@ class VaccineRepository {
 
   VaccineRepository(this._db);
 
-  void create(VaccineModel value) async {
+  Future<void> create(VaccineModel value) async {
     await _db.insert(
       _table,
       value.toMap(),
@@ -15,7 +15,7 @@ class VaccineRepository {
     );
   }
 
-  void update(VaccineModel value) async {
+  Future<void> update(VaccineModel value) async {
     await _db.update(
       _table,
       value.toMap(),
@@ -24,7 +24,7 @@ class VaccineRepository {
     );
   }
 
-  void delete(int id) async {
+  Future<void> delete(int id) async {
     await _db.delete(
       _table,
       where: 'id = ?',

@@ -18,12 +18,13 @@ class FeedModel {
     required num weight,
     required String observation,
     required int petId,
+    required id,
   }) {
     return FeedModel(
       name: name,
       weight: weight,
       observation: observation,
-      id: 0,
+      id: id,
       petId: petId,
     );
   }

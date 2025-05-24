@@ -1,36 +1,35 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:petcare/models/pet_model.dart';
+import 'package:petcare/models/vaccine_model.dart';
 import 'package:petcare/pages/loading_page.dart';
 import 'package:petcare/providers/petcare_database_provider.dart';
 import 'package:petcare/repositories/pets_repository.dart';
+import 'package:petcare/repositories/vaccine_repository.dart';
 import 'package:petcare/themes/pet_care_theme.dart';
 import 'package:petcare/widgets/date_input.dart';
-import 'package:petcare/widgets/image_input.dart';
+import 'package:petcare/widgets/dropdown_input.dart';
 import 'package:petcare/widgets/save_button.dart';
 import 'package:petcare/widgets/text_input.dart';
 import 'package:provider/provider.dart';
 
-class AddPetPage extends StatefulWidget {
-  const AddPetPage({super.key});
+class AddVaccinationPage extends StatefulWidget {
+  const AddVaccinationPage({super.key});
 
   @override
-  State<AddPetPage> createState() => _AddPetPageState();
+  State<AddVaccinationPage> createState() => _AddVaccinationPageState();
 }
 
-class _AddPetPageState extends State<AddPetPage> {
+class _AddVaccinationPageState extends State<AddVaccinationPage> {
   final _formGlobalKey = GlobalKey<FormState>();
-  final _imageController = TextEditingController();
+  final _petIdController = TextEditingController() ;
   final _nameController = TextEditingController();
-  final _breedController = TextEditingController();
-  final _bornDateController = TextEditingController();
+  final _applicationDateController = TextEditingController();
   final _observationController = TextEditingController();
 
+  late List<PetModel> _petlist;
   late PetsRepository _petsRepository;
+  late VaccineRepository _vaccineRepository;
 
   bool _loading = false;
 
@@ -47,36 +46,40 @@ class _AddPetPageState extends State<AddPetPage> {
 
     var provider = Provider.of<PetcareDatabaseProvider>(context, listen: false);
     var database = provider.getDatabase();
+    var vaccineRepository = VaccineRepository(database);
     var petsRepository = PetsRepository(database);
+    var pets = await petsRepository.list();
 
     setState(() {
       _petsRepository = petsRepository;
+      _petlist = pets;
+      _vaccineRepository = vaccineRepository;
       _loading = false;
     });
   }
 
   _save() async {
-    var file = XFile(_imageController.text);
-    var duplicateFilePath = (await getApplicationDocumentsDirectory()).path;
-    var fileName = file.path.split(Platform.pathSeparator).last;
-    var filePath = '$duplicateFilePath/$fileName';
+    if (!_formGlobalKey.currentState!.validate()) {
+      return;
+    }
 
-    await file.saveTo(filePath);
+    try {
+      var vaccine = await _vaccineRepository.list();
+      var value = VaccineModel.create(
+        id: vaccine.isEmpty? 0: vaccine.last.id+1,
+        name: _nameController.text,
+        date: DateFormat("dd/MM/yyyy").parse(_applicationDateController.text),
+        observation: _observationController.text,
+        petId: int.parse(_petIdController.text),
+      );
 
-    var pets = await _petsRepository.list();
-    var value = PetModel.create(
-      id: pets.isEmpty? 0: pets.last.id + 1,
-      name: _nameController.text,
-      breed: _breedController.text,
-      bornDate: DateFormat("dd/MM/yyyy").parse(_bornDateController.text),
-      observation: _observationController.text,
-      image: filePath,
-    );
-
-    await _petsRepository.create(value);
-
-    if (mounted) {
-      Navigator.pop(context);
+      await _vaccineRepository.create(value);
+      // TODO: Create dialog to show sucess and go back to page
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      // TODO: Create dialog to show error
     }
   }
 
@@ -85,7 +88,7 @@ class _AddPetPageState extends State<AddPetPage> {
     if (_loading) {
       return LoadingPage();
     }
-
+    
     return Scaffold(
       appBar: _appBar(context),
       body: _body(context),
@@ -113,33 +116,31 @@ class _AddPetPageState extends State<AddPetPage> {
       key: _formGlobalKey,
       child: Column(
         children: [
-          ImageInput(
-            color: PetCareTheme.orange_50,
-            controller: _imageController,
+          DropdownInput(
+            label: 'Pet',
+            items: _petDropdownMenuItems(),
+            hint: 'Nenhum pet selecionado',
+            value: _petIdController.text,
+            backgroundColor: PetCareTheme.pink_50,
+            margin: EdgeInsets.only(left: 16, right: 16, top: 16),
+            onChanged: (value) => _petIdController.text=value!,
           ),
           SizedBox(height: 16),
           TextInput(
-            backgroundColor: PetCareTheme.orange_50,
-            label: 'Nome',
+            backgroundColor: PetCareTheme.pink_50,
+            label: 'Vacina',
             controller: _nameController,
-            icon: Icons.pets,
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.orange_50,
-            label: 'Raça',
-            controller: _breedController,
-            icon: Icons.bloodtype,
+            icon: Icons.vaccines,
           ),
           SizedBox(height: 16),
           DateInput(
-            backgroundColor: PetCareTheme.orange_50,
-            label: 'Data de Nascimento',
-            controller: _bornDateController,
+            backgroundColor: PetCareTheme.pink_50,
+            label: 'Data da vacina',
+            controller: _applicationDateController,
           ),
           SizedBox(height: 16),
           TextInput(
-            backgroundColor: PetCareTheme.orange_50,
+            backgroundColor: PetCareTheme.pink_50,
             label: 'Observação',
             controller: _observationController,
             maxlines: 3,
@@ -152,9 +153,22 @@ class _AddPetPageState extends State<AddPetPage> {
   Widget _floatingActionButton(BuildContext context) {
     return SaveButton(
       label: 'Salvar',
-      color: PetCareTheme.orange_100,
-      icon: Icons.pets,
+      color: PetCareTheme.pink_900,
+      icon: Icons.vaccines,
       onPressed: _save,
     );
+  }
+
+  List<DropdownMenuItem<String>> _petDropdownMenuItems() {
+    if (_petlist.isEmpty) {
+      return [];
+    }
+
+    return _petlist
+        .map<DropdownMenuItem<String>>((e) => DropdownMenuItem(
+              value: e.id.toString(),
+              child: Text(e.name),
+            ))
+        .toList();
   }
 }

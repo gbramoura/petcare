@@ -1,34 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
+import 'package:petcare/models/vaccine_model.dart';
 import 'package:petcare/providers/petcare_database_provider.dart';
 import 'package:petcare/repositories/pets_repository.dart';
 import 'package:petcare/themes/pet_care_theme.dart';
 import 'package:provider/provider.dart';
 
-class ToursCard extends StatefulWidget {
-  final int id;
+class VaccineCard extends StatefulWidget {
   final int petId;
-  final String activity;
-  final String place;
-  final DateTime date;
+  final VaccineModel vaccine;
   final void Function(BuildContext context) onDelete;
 
-  const ToursCard({
+  const VaccineCard({
     super.key,
-    required this.id,
-    required this.activity,
-    required this.place,
+    required this.vaccine,
     required this.petId,
-    required this.date,
     required this.onDelete,
   });
 
   @override
-  State<ToursCard> createState() => _ToursCardState();
+  State<VaccineCard> createState() => _VaccineCardState();
 }
 
-class _ToursCardState extends State<ToursCard>
+class _VaccineCardState extends State<VaccineCard>
     with SingleTickerProviderStateMixin {
   late String _petName = '';
 
@@ -56,7 +51,7 @@ class _ToursCardState extends State<ToursCard>
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        color: PetCareTheme.blue_250,
+        color: PetCareTheme.pink_50,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Slidable(
@@ -85,49 +80,39 @@ class _ToursCardState extends State<ToursCard>
   Widget _content() {
     return Container(
       padding: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      child: Row(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                widget.activity,
-                softWrap: true,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 24,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.vaccine.name,
+                  softWrap: true,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 24,
+                  ),
                 ),
-              ),
-              Text(
-                widget.place,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
+                Text(
+                  _petName,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                _petName,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                  fontStyle: FontStyle.italic,
-                ),
+          Column(children: [
+            Text(
+              DateFormat('dd/MM/yyyy').format(widget.vaccine.date),
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 20,
               ),
-              Text(
-                DateFormat('dd/MM/yyyy').format(widget.date),
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                ),
-              ),
-            ],
-          )
+            ),
+          ])
         ],
       ),
     );

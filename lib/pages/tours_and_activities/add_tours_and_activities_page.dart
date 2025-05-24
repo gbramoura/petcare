@@ -70,7 +70,7 @@ class _AddToursAndActivitiesPageState extends State<AddToursAndActivitiesPage> {
   _save() async {
     var tours = await _toursRepository.list();
     var value = ToursModel.create(
-      id: tours.last.id + 1,
+      id: tours.isEmpty? 0: tours.last.id + 1,
       activity: _activityController.text,
       date: DateFormat("dd/MM/yyyy").parse(_dateController.text),
       observation: '',
@@ -139,6 +139,7 @@ class _AddToursAndActivitiesPageState extends State<AddToursAndActivitiesPage> {
             hint: 'Nenhum pet encontrado',
             icon: Icons.pets,
             backgroundColor: PetCareTheme.blue_250,
+            margin: EdgeInsets.only(left: 16, right: 16, top: 16),
             value: _selectedPet,
             onChanged: (value) => {
               setState(() {
