@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petcare/constants/route_constants.dart';
 import 'package:petcare/database.dart';
+import 'package:petcare/pages/feed/add_feed_page.dart';
 import 'package:petcare/pages/pets/add_pet_page.dart';
-import 'package:petcare/pages/feed_page.dart';
+import 'package:petcare/pages/feed/feed_page.dart';
 import 'package:petcare/pages/home_page.dart';
 import 'package:petcare/pages/medic_history_page.dart';
 import 'package:petcare/pages/pets/pets_page.dart';
@@ -64,7 +65,8 @@ class App extends StatelessWidget {
         RouteConstants.addPet: (context) => AddPetPage(),
         RouteConstants.addToursAndActivities: (context) =>
             AddToursAndActivitiesPage(),
-        RouteConstants.addVaccination: (context) => AddVaccinationPage()
+        RouteConstants.addVaccination: (context) => AddVaccinationPage(),
+        RouteConstants.addFeed: (context) => AddFeedPage(),
       },
     );
   }

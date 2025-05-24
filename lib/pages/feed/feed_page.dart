@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/constants/route_constants.dart';
 import 'package:petcare/models/feed_model.dart';
 import 'package:petcare/pages/loading_page.dart';
 import 'package:petcare/providers/petcare_database_provider.dart';
 import 'package:petcare/repositories/feed_repository.dart';
 import 'package:petcare/themes/pet_care_theme.dart';
 import 'package:petcare/widgets/add_button.dart';
+import 'package:petcare/widgets/feed_card.dart';
 import 'package:provider/provider.dart';
 
 class FeedPage extends StatefulWidget {
@@ -35,11 +37,26 @@ class _FeedPageState extends State<FeedPage> {
     var database = provider.getDatabase();
 
     var feedRepository = FeedRepository(database);
-    var tours = await feedRepository.list();
+    var feed = await feedRepository.list();
 
     setState(() {
       _feedRepository = feedRepository;
-      _list = tours;
+      _list = feed;
+      _loading = false;
+    });
+  }
+
+  _delete(int id) async {
+    setState(() {
+      _loading = true;
+    });
+
+    await _feedRepository.delete(id);
+
+    var feed = await _feedRepository.list();
+
+    setState(() {
+      _list = feed;
       _loading = false;
     });
   }
@@ -53,7 +70,7 @@ class _FeedPageState extends State<FeedPage> {
     return Scaffold(
       appBar: _appBar(context),
       body: _body(context),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: _floatingActionButton(context),
     );
   }
@@ -77,8 +94,23 @@ class _FeedPageState extends State<FeedPage> {
       return _empty();
     }
 
-    return Center(
-      child: Text('food'),
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      primary: false,
+      shrinkWrap: true,
+      itemCount: _list.length,
+      itemBuilder: (context, index) {
+        var feed = _list[index];
+        return FeedCard(
+          id: feed.id,
+          petId: feed.petId,
+          name: feed.name,
+          weight: feed.weight,
+          onDelete: (context) {
+            _delete(feed.id);
+          },
+        );
+      },
     );
   }
 
@@ -114,6 +146,22 @@ class _FeedPageState extends State<FeedPage> {
       label: 'Adicionar Alimentação',
       color: PetCareTheme.orange_300,
       icon: Icons.cookie,
+      onPressed: () {
+        Navigator.pushNamed(context, RouteConstants.addFeed).then(
+          (value) async {
+            setState(() {
+              _loading = true;
+            });
+
+            var feed = await _feedRepository.list();
+
+            setState(() {
+              _list = feed;
+              _loading = false;
+            });
+          },
+        );
+      },
     );
   }
 }

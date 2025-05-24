@@ -6,6 +6,7 @@ class TextInput extends StatelessWidget {
   final IconData? icon;
   final int? maxlines;
   final EdgeInsetsGeometry? margin;
+  final TextInputType? keyboardType;
   final TextEditingController controller;
 
   const TextInput({
@@ -13,6 +14,7 @@ class TextInput extends StatelessWidget {
     this.margin,
     this.icon,
     this.maxlines,
+    this.keyboardType,
     required this.backgroundColor,
     required this.label,
     required this.controller,
@@ -26,6 +28,7 @@ class TextInput extends StatelessWidget {
         style: TextStyle(fontSize: 18),
         controller: controller,
         maxLines: maxlines,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
