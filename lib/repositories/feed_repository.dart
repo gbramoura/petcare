@@ -7,16 +7,16 @@ class FeedRepository {
 
   FeedRepository(this._db);
 
-  void create(FeedModel value) async {
-    await _db.insert(
+  Future<int> create(FeedModel value) async {
+    return _db.insert(
       _table,
       value.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  void update(FeedModel value) async {
-    await _db.update(
+  Future<int> update(FeedModel value) async {
+    return _db.update(
       _table,
       value.toMap(),
       where: 'id = ?',
@@ -24,8 +24,8 @@ class FeedRepository {
     );
   }
 
-  void delete(int id) async {
-    await _db.delete(
+  Future<int> delete(int id) async {
+    return _db.delete(
       _table,
       where: 'id = ?',
       whereArgs: [id],

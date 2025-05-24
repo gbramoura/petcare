@@ -7,5 +7,6 @@ class RouteConstants {
   static String toursAndActivities = '/tours-and-activities';
   static String addToursAndActivities = '/add-tours-and-activities';
   static String feed = '/feed';
+  static String addFeed = '/add-feed';
   static String medicHistory = '/medic-history';
 }
