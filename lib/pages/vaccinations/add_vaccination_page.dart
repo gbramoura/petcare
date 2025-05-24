@@ -120,7 +120,7 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
             hint: 'Nenhum pet selecionado',
             value: _petIdController.text,
             backgroundColor: PetCareTheme.pink_50,
-            margin: EdgeInsets.only(left: 16, right: 16, top: 12),
+            margin: EdgeInsets.only(left: 16, right: 16, top: 16),
             onChanged: (value) => _petIdController.text=value!,
           ),
           SizedBox(height: 16),

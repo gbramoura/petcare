@@ -139,6 +139,7 @@ class _AddToursAndActivitiesPageState extends State<AddToursAndActivitiesPage> {
             hint: 'Nenhum pet encontrado',
             icon: Icons.pets,
             backgroundColor: PetCareTheme.blue_250,
+            margin: EdgeInsets.only(left: 16, right: 16, top: 16),
             value: _selectedPet,
             onChanged: (value) => {
               setState(() {
