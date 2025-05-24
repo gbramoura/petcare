@@ -43,7 +43,7 @@ class _ToursCardState extends State<ToursCard>
     var database = provider.getDatabase();
 
     var petsRepository = PetsRepository(database);
-    var pet = await petsRepository.get(widget.id);
+    var pet = await petsRepository.get(widget.petId);
 
     setState(() {
       _petName = pet.name;
