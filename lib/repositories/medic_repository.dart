@@ -7,7 +7,7 @@ class MedicRepository {
 
   MedicRepository(this._db);
 
-  void create(MedicModel value) async {
+  Future<void> create(MedicModel value) async {
     await _db.insert(
       _table,
       value.toMap(),
@@ -24,7 +24,7 @@ class MedicRepository {
     );
   }
 
-  void delete(int id) async {
+  Future<void> delete(int id) async {
     await _db.delete(
       _table,
       where: 'id = ?',
