@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:petcare/models/medic_model.dart';
 import 'package:petcare/models/pet_model.dart';
-import 'package:petcare/models/vaccine_model.dart';
 import 'package:petcare/pages/loading_page.dart';
 import 'package:petcare/providers/petcare_database_provider.dart';
+import 'package:petcare/repositories/medic_repository.dart';
 import 'package:petcare/repositories/pets_repository.dart';
-import 'package:petcare/repositories/vaccine_repository.dart';
 import 'package:petcare/themes/pet_care_theme.dart';
 import 'package:petcare/widgets/date_input.dart';
 import 'package:petcare/widgets/dropdown_input.dart';
@@ -13,23 +13,24 @@ import 'package:petcare/widgets/save_button.dart';
 import 'package:petcare/widgets/text_input.dart';
 import 'package:provider/provider.dart';
 
-class AddVaccinationPage extends StatefulWidget {
-  const AddVaccinationPage({super.key});
+class AddMedicPage extends StatefulWidget {
+  const AddMedicPage({super.key});
 
   @override
-  State<AddVaccinationPage> createState() => _AddVaccinationPageState();
+  State<AddMedicPage> createState() => _AddMedicPageState();
 }
 
-class _AddVaccinationPageState extends State<AddVaccinationPage> {
+class _AddMedicPageState extends State<AddMedicPage> {
   final _formGlobalKey = GlobalKey<FormState>();
-  final _petIdController = TextEditingController() ;
+  final _petIdController = TextEditingController();
   final _nameController = TextEditingController();
-  final _applicationDateController = TextEditingController();
+  final _healthStatusController = TextEditingController();
+  final _medicDateController = TextEditingController();
   final _observationController = TextEditingController();
 
   late List<PetModel> _petlist;
   late PetsRepository _petsRepository;
-  late VaccineRepository _vaccineRepository;
+  late MedicRepository _medicRepository;
 
   bool _loading = false;
 
@@ -46,14 +47,14 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
 
     var provider = Provider.of<PetcareDatabaseProvider>(context, listen: false);
     var database = provider.getDatabase();
-    var vaccineRepository = VaccineRepository(database);
+    var medicRepository = MedicRepository(database);
     var petsRepository = PetsRepository(database);
     var pets = await petsRepository.list();
 
     setState(() {
       _petsRepository = petsRepository;
       _petlist = pets;
-      _vaccineRepository = vaccineRepository;
+      _medicRepository = medicRepository;
       _loading = false;
     });
   }
@@ -64,16 +65,17 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
     }
 
     try {
-      var vaccine = await _vaccineRepository.list();
-      var value = VaccineModel.create(
-        id: vaccine.isEmpty? 0: vaccine.last.id+1,
-        name: _nameController.text,
-        date: DateFormat("dd/MM/yyyy").parse(_applicationDateController.text),
+      var medic = await _medicRepository.list();
+      var value = MedicModel.create(
+        id: medic.isEmpty? 0: medic.last.id+1,
+        medic: _nameController.text,
+        date: DateFormat("dd/MM/yyyy").parse(_medicDateController.text),
         observation: _observationController.text,
+        healthStatus: _healthStatusController.text,
         petId: int.parse(_petIdController.text),
       );
 
-      await _vaccineRepository.create(value);
+      await _medicRepository.create(value);
       // TODO: Create dialog to show sucess and go back to page
       if (mounted) {
         Navigator.pop(context);
@@ -88,7 +90,7 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
     if (_loading) {
       return LoadingPage();
     }
-    
+
     return Scaffold(
       appBar: _appBar(context),
       body: _body(context),
@@ -97,11 +99,11 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
     );
   }
 
-  AppBar _appBar(BuildContext context) {
+  AppBar? _appBar(context) {
     return AppBar(
       titleSpacing: 0,
       title: Text(
-        'Novo Pet',
+        'Nova Consulta',
         style: TextStyle(
           fontSize: 28,
           fontWeight: FontWeight.w600,
@@ -111,7 +113,7 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
     );
   }
 
-  Widget _body(BuildContext context) {
+  Widget? _body(context) {
     return Form(
       key: _formGlobalKey,
       child: Column(
@@ -122,26 +124,33 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
             hint: 'Nenhum pet selecionado',
             value: _petIdController.text,
             icon: Icons.pets,
-            backgroundColor: PetCareTheme.pink_50,
+            backgroundColor: PetCareTheme.pink_75,
             margin: EdgeInsets.only(left: 16, right: 16, top: 16),
-            onChanged: (value) => _petIdController.text=value!,
+            onChanged: (value) => _petIdController.text = value!,
           ),
           SizedBox(height: 16),
           TextInput(
-            backgroundColor: PetCareTheme.pink_50,
-            label: 'Vacina',
+            backgroundColor: PetCareTheme.pink_75,
+            label: 'Médico Veterinário',
             controller: _nameController,
-            icon: Icons.vaccines,
+            icon: Icons.medical_services,
           ),
           SizedBox(height: 16),
           DateInput(
-            backgroundColor: PetCareTheme.pink_50,
-            label: 'Data da vacina',
-            controller: _applicationDateController,
+            backgroundColor: PetCareTheme.pink_75,
+            label: 'Data da Consulta',
+            controller: _medicDateController,
           ),
           SizedBox(height: 16),
           TextInput(
-            backgroundColor: PetCareTheme.pink_50,
+            backgroundColor: PetCareTheme.pink_75,
+            label: 'Estado de Saúde',
+            controller: _healthStatusController,
+            icon: Icons.health_and_safety,
+          ),
+          SizedBox(height: 16),
+          TextInput(
+            backgroundColor: PetCareTheme.pink_75,
             label: 'Observação',
             controller: _observationController,
             maxlines: 3,
@@ -151,10 +160,10 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
     );
   }
 
-  Widget _floatingActionButton(BuildContext context) {
+  Widget? _floatingActionButton(context) {
     return SaveButton(
       label: 'Salvar',
-      color: PetCareTheme.pink_900,
+      color: PetCareTheme.pink_300,
       icon: Icons.vaccines,
       onPressed: _save,
     );

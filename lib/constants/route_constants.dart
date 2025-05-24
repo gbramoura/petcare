@@ -9,4 +9,5 @@ class RouteConstants {
   static String feed = '/feed';
   static String addFeed = '/add-feed';
   static String medicHistory = '/medic-history';
+  static String addMedic = '/add-medic';
 }

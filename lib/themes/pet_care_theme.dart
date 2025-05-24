@@ -11,6 +11,7 @@ class PetCareTheme {
   static Color blue_300 = Color.fromRGBO(22, 148, 165, 1);
 
   static Color pink_50 = Color.fromRGBO(255, 195, 229, 1);
+  static Color pink_75 = Color.fromRGBO(255, 195, 189, 1);
   static Color pink_100 = Color.fromRGBO(254, 144, 133, 1);
   static Color pink_300 = Color.fromRGBO(254, 92, 91, 1);
   static Color pink_900 = Color.fromRGBO(215, 44, 141, 1);
