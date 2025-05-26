@@ -32,20 +32,24 @@ class SaveButton extends StatelessWidget {
           ),
         ),
         SizedBox(width: 10),
-        InkWell(
+        Material(
+          elevation: 4,
           borderRadius: BorderRadius.circular(50),
-          onTap: onPressed,
-          child: Ink(
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
-              child: Icon(
-                icon,
-                size: 32,
-                color: PetCareTheme.white,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(50),
+            onTap: onPressed,
+            child: Ink(
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                child: Icon(
+                  icon,
+                  size: 32,
+                  color: PetCareTheme.white,
+                ),
               ),
             ),
           ),
