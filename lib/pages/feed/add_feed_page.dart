@@ -125,47 +125,49 @@ class _AddFeedPageState extends State<AddFeedPage> {
   }
 
   Widget _body(BuildContext context) {
-    return Form(
-      key: _formGlobalKey,
-      child: Column(
-        children: [
-          DropdownInput(
-            items: _dropdownMap(),
-            label: 'Pet',
-            hint: 'Nenhum pet encontrado',
-            icon: Icons.pets,
-            backgroundColor: PetCareTheme.orange_250,
-            margin: EdgeInsets.only(left: 16, right: 16, top: 16),
-            value: _selectedPet,
-            onChanged: (value) => {
-              setState(() {
-                _selectedPet = value;
-              })
-            },
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.orange_250,
-            label: 'Ração',
-            controller: _foodController,
-            icon: Icons.cookie_outlined,
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.orange_250,
-            label: 'Peso da Ração',
-            controller: _weightController,
-            icon: Icons.balance,
-            keyboardType: TextInputType.number,
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.orange_250,
-            label: 'Observações',
-            controller: _observationController,
-            maxlines: 3,
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Form(
+        key: _formGlobalKey,
+        child: Column(
+          children: [
+            DropdownInput(
+              items: _dropdownMap(),
+              label: 'Pet',
+              hint: 'Nenhum pet encontrado',
+              icon: Icons.pets,
+              backgroundColor: PetCareTheme.orange_250,
+              margin: EdgeInsets.only(left: 16, right: 16, top: 16),
+              value: _selectedPet,
+              onChanged: (value) => {
+                setState(() {
+                  _selectedPet = value;
+                })
+              },
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.orange_250,
+              label: 'Ração',
+              controller: _foodController,
+              icon: Icons.cookie_outlined,
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.orange_250,
+              label: 'Peso da Ração',
+              controller: _weightController,
+              icon: Icons.balance,
+              keyboardType: TextInputType.number,
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.orange_250,
+              label: 'Observações',
+              controller: _observationController,
+              maxlines: 3,
+            ),
+          ],
+        ),
       ),
     );
   }

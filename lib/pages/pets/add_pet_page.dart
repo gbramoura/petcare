@@ -109,42 +109,44 @@ class _AddPetPageState extends State<AddPetPage> {
   }
 
   Widget _body(BuildContext context) {
-    return Form(
-      key: _formGlobalKey,
-      child: Column(
-        children: [
-          ImageInput(
-            color: PetCareTheme.orange_50,
-            controller: _imageController,
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.orange_50,
-            label: 'Nome',
-            controller: _nameController,
-            icon: Icons.pets,
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.orange_50,
-            label: 'Raça',
-            controller: _breedController,
-            icon: Icons.bloodtype,
-          ),
-          SizedBox(height: 16),
-          DateInput(
-            backgroundColor: PetCareTheme.orange_50,
-            label: 'Data de Nascimento',
-            controller: _bornDateController,
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.orange_50,
-            label: 'Observação',
-            controller: _observationController,
-            maxlines: 3,
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Form(
+        key: _formGlobalKey,
+        child: Column(
+          children: [
+            ImageInput(
+              color: PetCareTheme.orange_50,
+              controller: _imageController,
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.orange_50,
+              label: 'Nome',
+              controller: _nameController,
+              icon: Icons.pets,
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.orange_50,
+              label: 'Raça',
+              controller: _breedController,
+              icon: Icons.bloodtype,
+            ),
+            SizedBox(height: 16),
+            DateInput(
+              backgroundColor: PetCareTheme.orange_50,
+              label: 'Data de Nascimento',
+              controller: _bornDateController,
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.orange_50,
+              label: 'Observação',
+              controller: _observationController,
+              maxlines: 3,
+            ),
+          ],
+        ),
       ),
     );
   }

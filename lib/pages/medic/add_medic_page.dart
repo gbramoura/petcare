@@ -109,48 +109,50 @@ class _AddMedicPageState extends State<AddMedicPage> {
   }
 
   Widget? _body(context) {
-    return Form(
-      key: _formGlobalKey,
-      child: Column(
-        children: [
-          DropdownInput(
-            label: 'Pet',
-            items: _petDropdownMenuItems(),
-            hint: 'Nenhum pet selecionado',
-            value: _petIdController.text,
-            icon: Icons.pets,
-            backgroundColor: PetCareTheme.pink_75,
-            margin: EdgeInsets.only(left: 16, right: 16, top: 16),
-            onChanged: (value) => _petIdController.text = value!,
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.pink_75,
-            label: 'Médico Veterinário',
-            controller: _nameController,
-            icon: Icons.medical_services,
-          ),
-          SizedBox(height: 16),
-          DateInput(
-            backgroundColor: PetCareTheme.pink_75,
-            label: 'Data da Consulta',
-            controller: _medicDateController,
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.pink_75,
-            label: 'Estado de Saúde',
-            controller: _healthStatusController,
-            icon: Icons.health_and_safety,
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.pink_75,
-            label: 'Observação',
-            controller: _observationController,
-            maxlines: 3,
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Form(
+        key: _formGlobalKey,
+        child: Column(
+          children: [
+            DropdownInput(
+              label: 'Pet',
+              items: _petDropdownMenuItems(),
+              hint: 'Nenhum pet selecionado',
+              value: _petIdController.text,
+              icon: Icons.pets,
+              backgroundColor: PetCareTheme.pink_75,
+              margin: EdgeInsets.only(left: 16, right: 16, top: 16),
+              onChanged: (value) => _petIdController.text = value!,
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.pink_75,
+              label: 'Médico Veterinário',
+              controller: _nameController,
+              icon: Icons.medical_services,
+            ),
+            SizedBox(height: 16),
+            DateInput(
+              backgroundColor: PetCareTheme.pink_75,
+              label: 'Data da Consulta',
+              controller: _medicDateController,
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.pink_75,
+              label: 'Estado de Saúde',
+              controller: _healthStatusController,
+              icon: Icons.health_and_safety,
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.pink_75,
+              label: 'Observação',
+              controller: _observationController,
+              maxlines: 3,
+            ),
+          ],
+        ),
       ),
     );
   }

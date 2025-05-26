@@ -129,45 +129,47 @@ class _AddToursAndActivitiesPageState extends State<AddToursAndActivitiesPage> {
   }
 
   Widget _body(BuildContext context) {
-    return Form(
-      key: _formGlobalKey,
-      child: Column(
-        children: [
-          DropdownInput(
-            items: _dropdownMap(),
-            label: 'Pet',
-            hint: 'Nenhum pet encontrado',
-            icon: Icons.pets,
-            backgroundColor: PetCareTheme.blue_250,
-            margin: EdgeInsets.only(left: 16, right: 16, top: 16),
-            value: _selectedPet,
-            onChanged: (value) => {
-              setState(() {
-                _selectedPet = value;
-              })
-            },
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.blue_250,
-            label: 'Atividade',
-            controller: _activityController,
-            icon: Icons.park,
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.blue_250,
-            label: 'Local',
-            controller: _placeController,
-            icon: Icons.location_pin,
-          ),
-          SizedBox(height: 16),
-          DateInput(
-            backgroundColor: PetCareTheme.blue_250,
-            label: 'Data da Atividade',
-            controller: _dateController,
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Form(
+        key: _formGlobalKey,
+        child: Column(
+          children: [
+            DropdownInput(
+              items: _dropdownMap(),
+              label: 'Pet',
+              hint: 'Nenhum pet encontrado',
+              icon: Icons.pets,
+              backgroundColor: PetCareTheme.blue_250,
+              margin: EdgeInsets.only(left: 16, right: 16, top: 16),
+              value: _selectedPet,
+              onChanged: (value) => {
+                setState(() {
+                  _selectedPet = value;
+                })
+              },
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.blue_250,
+              label: 'Atividade',
+              controller: _activityController,
+              icon: Icons.park,
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.blue_250,
+              label: 'Local',
+              controller: _placeController,
+              icon: Icons.location_pin,
+            ),
+            SizedBox(height: 16),
+            DateInput(
+              backgroundColor: PetCareTheme.blue_250,
+              label: 'Data da Atividade',
+              controller: _dateController,
+            ),
+          ],
+        ),
       ),
     );
   }
