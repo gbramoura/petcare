@@ -97,12 +97,14 @@ class _FeedCardState extends State<FeedCard>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                _petName,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                  fontStyle: FontStyle.italic,
+              Flexible(
+                child: Text(
+                  _petName,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ),
               Text(

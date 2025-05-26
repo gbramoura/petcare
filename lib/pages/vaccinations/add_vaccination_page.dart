@@ -106,41 +106,43 @@ class _AddVaccinationPageState extends State<AddVaccinationPage> {
   }
 
   Widget _body(BuildContext context) {
-    return Form(
-      key: _formGlobalKey,
-      child: Column(
-        children: [
-          DropdownInput(
-            label: 'Pet',
-            items: _petDropdownMenuItems(),
-            hint: 'Nenhum pet selecionado',
-            value: _petIdController.text,
-            icon: Icons.pets,
-            backgroundColor: PetCareTheme.pink_50,
-            margin: EdgeInsets.only(left: 16, right: 16, top: 16),
-            onChanged: (value) => _petIdController.text = value!,
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.pink_50,
-            label: 'Vacina',
-            controller: _nameController,
-            icon: Icons.vaccines,
-          ),
-          SizedBox(height: 16),
-          DateInput(
-            backgroundColor: PetCareTheme.pink_50,
-            label: 'Data da vacina',
-            controller: _applicationDateController,
-          ),
-          SizedBox(height: 16),
-          TextInput(
-            backgroundColor: PetCareTheme.pink_50,
-            label: 'Observação',
-            controller: _observationController,
-            maxlines: 3,
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Form(
+        key: _formGlobalKey,
+        child: Column(
+          children: [
+            DropdownInput(
+              label: 'Pet',
+              items: _petDropdownMenuItems(),
+              hint: 'Nenhum pet selecionado',
+              value: _petIdController.text,
+              icon: Icons.pets,
+              backgroundColor: PetCareTheme.pink_50,
+              margin: EdgeInsets.only(left: 16, right: 16, top: 16),
+              onChanged: (value) => _petIdController.text = value!,
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.pink_50,
+              label: 'Vacina',
+              controller: _nameController,
+              icon: Icons.vaccines,
+            ),
+            SizedBox(height: 16),
+            DateInput(
+              backgroundColor: PetCareTheme.pink_50,
+              label: 'Data da vacina',
+              controller: _applicationDateController,
+            ),
+            SizedBox(height: 16),
+            TextInput(
+              backgroundColor: PetCareTheme.pink_50,
+              label: 'Observação',
+              controller: _observationController,
+              maxlines: 3,
+            ),
+          ],
+        ),
       ),
     );
   }
