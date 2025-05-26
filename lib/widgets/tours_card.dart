@@ -91,12 +91,14 @@ class _ToursCardState extends State<ToursCard>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                widget.activity,
-                softWrap: true,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 24,
+              Flexible(
+                child: Text(
+                  widget.activity,
+                  softWrap: true,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 24,
+                  ),
                 ),
               ),
               Text(
@@ -111,12 +113,14 @@ class _ToursCardState extends State<ToursCard>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                _petName,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                  fontStyle: FontStyle.italic,
+              Flexible(
+                child: Text(
+                  _petName,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ),
               Text(
