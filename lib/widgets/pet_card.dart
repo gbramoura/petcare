@@ -2,50 +2,64 @@ import 'dart:io';
 
 import 'package:age_calculator/age_calculator.dart';
 import 'package:flutter/material.dart';
-import 'package:petcare/pages/pets/profile_pet_page.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:petcare/models/pet_model.dart';
 import 'package:petcare/themes/pet_care_theme.dart';
 
-class PetCard extends StatefulWidget {
-  final int id;
-  final String image;
-  final String name;
-  final String breed;
-  final DateTime bornDate;
+class PetCard extends StatelessWidget {
+  final PetModel pet;
+  final void Function(BuildContext context) onDelete;
+  final void Function(BuildContext context) onNavigate;
 
   const PetCard({
     super.key,
-    required this.id,
-    required this.image,
-    required this.name,
-    required this.breed,
-    required this.bornDate,
+    required this.pet,
+    required this.onDelete,
+    required this.onNavigate,
   });
-
-  @override
-  State<PetCard> createState() => _PetCardState();
-}
-
-class _PetCardState extends State<PetCard> {
-  _navigate() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ProfilePetPage(
-          id: widget.id,
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      padding: EdgeInsets.all(16),
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: PetCareTheme.orange_50,
         borderRadius: BorderRadius.circular(16),
       ),
+      child: Slidable(
+        startActionPane: ActionPane(
+          extentRatio: 0.50,
+          motion: ScrollMotion(),
+          children: [
+            SlidableAction(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+              ),
+              onPressed: onNavigate,
+              backgroundColor: PetCareTheme.orange_100,
+              foregroundColor: Colors.white,
+              icon: Icons.pets,
+              label: 'Perfil',
+            ),
+            SlidableAction(
+              onPressed: onDelete,
+              backgroundColor: Color(0xFFFE4A49),
+              foregroundColor: Colors.white,
+              icon: Icons.delete,
+              label: 'Deletar',
+            ),
+          ],
+        ),
+        child: container(),
+      ),
+    );
+  }
+
+  Widget container() {
+    return Container(
+      padding: EdgeInsets.all(16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -57,7 +71,7 @@ class _PetCardState extends State<PetCard> {
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: FileImage(
-                  File(widget.image),
+                  File(pet.image),
                 ),
               ),
             ),
@@ -68,7 +82,7 @@ class _PetCardState extends State<PetCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.name,
+                  pet.name,
                   softWrap: true,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -76,7 +90,7 @@ class _PetCardState extends State<PetCard> {
                   ),
                 ),
                 Text(
-                  widget.breed,
+                  pet.breed,
                   softWrap: true,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
@@ -85,29 +99,13 @@ class _PetCardState extends State<PetCard> {
                   ),
                 ),
                 Text(
-                  _getAge(widget.bornDate),
+                  _getAge(pet.bornDate),
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
                 ),
               ],
-            ),
-          ),
-          InkWell(
-            onTap: _navigate,
-            borderRadius: BorderRadius.circular(16),
-            child: Ink(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                width: 42,
-                height: 100,
-                child: Icon(
-                  Icons.arrow_forward_ios,
-                ),
-              ),
             ),
           ),
         ],
